@@ -45,8 +45,13 @@ Using CPLockController in your project
 		CPLockController *lockController = [[CPLockController alloc]initWithStyle:CPLockControllerTypeAuth];
 		lockController.passcode = @"1234";  //this is the passcode the user needs to enter
 		lockController.delegate = self;
-		
+
+6a. If using with an iPad, it is recommended to display using the UIModalPresentationFormSheet style
+                lockController.modalPresentationStyle = UIModalPresentationFormSheet;
 	
+6b. If you want to delegate acceptance of the passcode to your own logic (e.g. comparing to a stored hash), implement the optional protocol:
+                - (BOOL)lockController:(CPLockController *)lockController shouldAcceptPasscode:(NSString *)passcode;
+
 7. That's it!  Optional customization:
 		//Customize the navigation item title
 		lockController.title = @"Passcode is 1234";

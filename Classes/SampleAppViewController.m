@@ -16,7 +16,7 @@
 	CPLockController *lockController = [[CPLockController alloc]initWithStyle:CPLockControllerTypeSet];
 	
 	lockController.delegate = self;
-
+	lockController.modalPresentationStyle = UIModalPresentationFormSheet;
 	[self presentModalViewController:lockController animated:YES];
 }
 
@@ -25,12 +25,13 @@
 	lockController.passcode = @"1234";
 	lockController.delegate = self;
 	lockController.title = @"Passcode is 1234";
+	lockController.modalPresentationStyle = UIModalPresentationFormSheet;
 	[self presentModalViewController:lockController animated:YES];
 }
 
 #pragma mark CPLockControllerDelegate Methods
 
-- (void)lockControllerDidFinish:(NSString*)passcode {
+- (void)lockController:(CPLockController *)lockController didFinish:(NSString*)passcode {
 	if(passcode){
 		NSLog(@"new passcode: %@",passcode);
 	} else {
@@ -39,7 +40,7 @@
 	
 }
 
-- (void)lockControllerDidCancel {
+- (void)lockControllerDidCancel:(CPLockController *)lockController {
 	NSLog(@"user cancelled auth");
 }
 

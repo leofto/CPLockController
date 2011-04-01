@@ -52,12 +52,19 @@
 		self.retry = NO;
 		self.tempString = [NSMutableString string];
 		self.hideCode = YES;
+		
 	}
 	
 	return self;
 }
 
 
+/*
+- (void)loadView {
+	self.view = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 480.0)];
+}
+*/
+ 
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
@@ -73,12 +80,24 @@
 	
 }
 
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+	if (IS_IPAD) {
+		return YES;
+	} else {
+		return (interfaceOrientation == UIInterfaceOrientationPortrait);
+	}
+}
+
 - (void)setupSubviews {
 
 	self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
 
 	//prompt
-	promptLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 85, 320, 25)];
+	if (IS_IPAD) {
+		promptLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 85, 540, 25)];
+	} else {
+		promptLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 85, 320, 25)];
+	}
 	if(prompt == nil){
 		if(self.style == CPLockControllerTypeSet){
 			prompt = kCPLCDefaultSetPrompt;
@@ -98,7 +117,11 @@
 	[self.view addSubview:promptLabel];
 
 	//sub prompt- used for errors
-	subPromptLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 190, 320, 25)];
+	if (IS_IPAD) {
+		subPromptLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 190, 540, 25)];
+	} else {
+		subPromptLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 190, 320, 25)];	
+	}
 	subPromptLabel.textAlignment = UITextAlignmentCenter;
 	subPromptLabel.backgroundColor = [UIColor clearColor];
 	subPromptLabel.textColor = [UIColor colorWithRed:0.318 green:0.345 blue:0.416 alpha:1.000];;
@@ -114,14 +137,21 @@
 
 - (void)setupNavigationBar {
 	
-	UINavigationBar *navBar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0,0,320,50)];
+	UINavigationBar *navBar;
+	
+	if (IS_IPAD) {
+		navBar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0,0,540,50)];
+	} else {
+		navBar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0,0,320,50)];
+	}
 	navBar.barStyle = UIBarStyleBlack;
 	[self.view addSubview:navBar];
+	[navBar release];
 	navigationItem = [[UINavigationItem alloc]init];
 
-	[navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-																		 target:self
-																		 action:@selector(userDidCancel:)]
+	[navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+																						target:self
+																						action:@selector(userDidCancel:)] autorelease]
 								 animated:NO];
 	
 	[navBar pushNavigationItem:navigationItem animated:NO];
@@ -148,11 +178,15 @@
 	int padding = 15;
 	CGFloat fontsize = 32;
 	
+	if (IS_IPAD) {
+		leftpadding = 120;
+	}
+	
 	//create four textfields
 	field1 = [[UITextField alloc]initWithFrame:CGRectMake(leftpadding,toppadding,width,height)];
 	field1.backgroundColor = [UIColor whiteColor];
 	field1.borderStyle = UITextBorderStyleBezel;
-	//field1.enabled = NO;
+	field1.enabled = NO;
 	field1.secureTextEntry = self.hideCode;
 	field1.font = [UIFont systemFontOfSize:fontsize];
 	field1.textAlignment = UITextAlignmentCenter;
@@ -203,7 +237,7 @@
 	
 }
 
-#pragma mark --
+#pragma mark -
 #pragma mark UITextFieldDelegate Method
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 	int charcount = [textField.text length];
@@ -242,9 +276,9 @@
 			} else {
 				//check if confirm matches first
 				if([passcode isEqualToString:self.tempString]){
-					[delegate lockControllerDidFinish:passcode];
+					[delegate lockController:self didFinish:passcode];
 					[self dissmissView];
-
+					return NO;
 				//confirm passcode doesn't match
 				} else {
 					[self passcodeDidNotMatch];
@@ -253,17 +287,31 @@
 			}
 			
 		} else if(self.style == CPLockControllerTypeAuth){
+			// check to see if delegate wants to verify first
+			if ([delegate respondsToSelector:@selector(lockControllerShouldAcceptPasscode:)]) {
+				if ([delegate lockController:self shouldAcceptPasscode:self.tempString]) {
+					[delegate lockController:self didFinish:nil];
+					[self dissmissView];
+				} else {
+					// delegate rejected passcode
+					[self passcodeDidNotMatch];
+				}
+			} else {
 				if([passcode isEqualToString:self.tempString]){
-					[delegate lockControllerDidFinish:nil];
+					[delegate lockController:self didFinish:nil];
 					[self dissmissView];				
 					
 				} else {
 					[self passcodeDidNotMatch];
 					
-				}
+				}	
+			}
+			
+			
 			
 			
 		}
+		
 	}	
 	
 	return YES;
@@ -295,7 +343,8 @@
 }
 
 - (void)userDidCancel:(id)sender {
-	[delegate lockControllerDidCancel];
+	NSLog(@"cancel 1");
+	[delegate lockControllerDidCancel:self];
 	[self dissmissView];
 }
 
@@ -304,8 +353,10 @@
 }
 
 - (void)dealloc {
-    [super dealloc];
+	[navigationItem release];
 	[tempString release];
+    [super dealloc];
+	
 }
 
 

@@ -8,16 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
+#define IS_IPAD ([[UIDevice currentDevice] respondsToSelector:@selector(userInterfaceIdiom)] && [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) 
+
 typedef enum {
 CPLockControllerTypeAuth,
 CPLockControllerTypeSet
 } CPLockControllerStyle;
 
+@class CPLockController;
+
 @protocol CPLockControllerDelegate
 
 @required
-- (void)lockControllerDidFinish:(NSString*)passcode;
-- (void)lockControllerDidCancel;
+- (void)lockController:(CPLockController *)lockController didFinish:(NSString*)passcode;
+- (void)lockControllerDidCancel:(CPLockController *)lockController;
+
+@optional
+- (BOOL)lockController:(CPLockController *)lockController shouldAcceptPasscode:(NSString *)passcode;
 
 @end
 
@@ -28,7 +35,7 @@ CPLockControllerTypeSet
 	NSString *passcode;
 	NSString *prompt;
 	NSString *title;
-	id <CPLockControllerDelegate> delegate;
+	id <CPLockControllerDelegate, NSObject> delegate;
 	BOOL hideCode;
 	
 	//Private vars
@@ -45,7 +52,7 @@ CPLockControllerTypeSet
 	UITextField *field4;
 }
 
-@property (nonatomic, assign) id delegate;
+@property (nonatomic, assign) id <CPLockControllerDelegate, NSObject> delegate;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic) CPLockControllerStyle style;
 @property (nonatomic, retain) NSString *passcode;
