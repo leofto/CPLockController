@@ -15,7 +15,10 @@
 		2899E5220DE3E06400AC0155 /* SampleAppViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* SampleAppViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* SampleAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* SampleAppViewController.m */; };
-		3BC39AEB112922BF003DB305 /* CPLockController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC39AEA112922BF003DB305 /* CPLockController.m */; };
+		63BB53951346864E001EC04D /* CPLockController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BB53941346864E001EC04D /* CPLockController.m */; };
+		63BB53CE13468AC3001EC04D /* SampleAppViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63BB53CD13468AC3001EC04D /* SampleAppViewController_iPad.xib */; };
+		63BB53D013468AD4001EC04D /* MainWindow_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63BB53CF13468AD4001EC04D /* MainWindow_iPad.xib */; };
+		63BB53D513468D38001EC04D /* SampleAppViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BB53D413468D38001EC04D /* SampleAppViewController_iPad.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,8 +34,12 @@
 		28D7ACF70DDB3853001CB0EB /* SampleAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleAppViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* SampleApp_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleApp_Prefix.pch; sourceTree = "<group>"; };
-		3BC39AE9112922BF003DB305 /* CPLockController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLockController.h; sourceTree = "<group>"; };
-		3BC39AEA112922BF003DB305 /* CPLockController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLockController.m; sourceTree = "<group>"; };
+		63BB53931346864E001EC04D /* CPLockController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPLockController.h; sourceTree = "<group>"; };
+		63BB53941346864E001EC04D /* CPLockController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPLockController.m; sourceTree = "<group>"; };
+		63BB53CD13468AC3001EC04D /* SampleAppViewController_iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SampleAppViewController_iPad.xib; sourceTree = "<group>"; };
+		63BB53CF13468AD4001EC04D /* MainWindow_iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow_iPad.xib; sourceTree = "<group>"; };
+		63BB53D313468D38001EC04D /* SampleAppViewController_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleAppViewController_iPad.h; sourceTree = "<group>"; };
+		63BB53D413468D38001EC04D /* SampleAppViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleAppViewController_iPad.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SampleApp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SampleApp-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -57,6 +64,8 @@
 				1D3623250D0F684500981E51 /* SampleAppAppDelegate.m */,
 				28D7ACF60DDB3853001CB0EB /* SampleAppViewController.h */,
 				28D7ACF70DDB3853001CB0EB /* SampleAppViewController.m */,
+				63BB53D313468D38001EC04D /* SampleAppViewController_iPad.h */,
+				63BB53D413468D38001EC04D /* SampleAppViewController_iPad.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -78,6 +87,8 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				63BB53CD13468AC3001EC04D /* SampleAppViewController_iPad.xib */,
+				63BB53CF13468AD4001EC04D /* MainWindow_iPad.xib */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -114,8 +125,8 @@
 		3BC39AE61129229C003DB305 /* CPPassCodeView */ = {
 			isa = PBXGroup;
 			children = (
-				3BC39AE9112922BF003DB305 /* CPLockController.h */,
-				3BC39AEA112922BF003DB305 /* CPLockController.m */,
+				63BB53931346864E001EC04D /* CPLockController.h */,
+				63BB53941346864E001EC04D /* CPLockController.m */,
 			);
 			name = CPPassCodeView;
 			path = Classes;
@@ -148,7 +159,14 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "SampleApp" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -165,6 +183,8 @@
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				2899E5220DE3E06400AC0155 /* SampleAppViewController.xib in Resources */,
+				63BB53CE13468AC3001EC04D /* SampleAppViewController_iPad.xib in Resources */,
+				63BB53D013468AD4001EC04D /* MainWindow_iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,7 +198,8 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* SampleAppAppDelegate.m in Sources */,
 				28D7ACF80DDB3853001CB0EB /* SampleAppViewController.m in Sources */,
-				3BC39AEB112922BF003DB305 /* CPLockController.m in Sources */,
+				63BB53951346864E001EC04D /* CPLockController.m in Sources */,
+				63BB53D513468D38001EC04D /* SampleAppViewController_iPad.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,7 +216,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SampleApp_Prefix.pch;
 				INFOPLIST_FILE = "SampleApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = SampleApp;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -207,7 +231,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SampleApp_Prefix.pch;
 				INFOPLIST_FILE = "SampleApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = SampleApp;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
